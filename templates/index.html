@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Identify Exercise Objectives</title>
+</head>
+<body>
+    <h1>Exercise Objectives</h1>
+    <form method="POST">
+        <label for="objective">Enter Exercise Objective:</label>
+        <input type="text" name="objective" id="objective">
+        <button type="submit">Add Objective</button>
+    </form>
+    <h2>Current Objectives:</h2>
+    <ul>
+        {% for objective in exercise_objectives %}
+            <li>{{ objective }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
