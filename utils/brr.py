@@ -1,7 +1,7 @@
-#Uses
-#Binary Risk Analysis is good for:
-#● Quick risk conversations - be able to discuss a specific risk in just a few minutes
-#● Highlighting subjectivity - helping identify where perceptions about risk elements differ
+# Uses
+# Binary Risk Analysis is good for:
+# Quick risk conversations - be able to discuss a specific risk in just a few minutes
+# Highlighting subjectivity - helping identify where perceptions about risk elements differ
 class RiskMatrix:
     def __init__(self):
         self.responses = []

@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request
-
 from utils.dread import RiskAssessment
 from utils.risk import RiskAssessmentTool  # Import RiskAssessmentTool from risk.py
-from utils.brr import  RiskMatrix
-
+from utils.brr import RiskMatrix
 
 app = Flask(__name__)
 
@@ -62,7 +60,6 @@ def process_brr():
     matrix_names = risk_tool.determine_matrices()
 
     return render_template('brr_results.html', risk_tool=risk_tool, matrix_names=matrix_names)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
