@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
 
 from utils.dread import RiskAssessment
+from utils.risk import RiskAssessmentTool  # Import RiskAssessmentTool from risk.py
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html', result=None)
+    return render_template('index.html', dread_result=None, risk_result=None)
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
@@ -17,7 +18,7 @@ def calculate():
     discoverability = float(request.form['discoverability'])
 
     assessment = RiskAssessment(damage, reproducibility, exploitability, affected_users, discoverability)
-    result = {
+    dread_result = {
         'damage': damage,
         'reproducibility': reproducibility,
         'exploitability': exploitability,
@@ -27,7 +28,25 @@ def calculate():
         'risk_level': assessment.determine_risk_level(assessment.calculate_dread_risk())
     }
 
-    return render_template('index.html', result=result)
+    return render_template('index.html', dread_result=dread_result, risk_result=None)
+
+@app.route('/calculate_risk', methods=['POST'])
+def calculate_risk():
+    tp = float(request.form['tp'])
+    vp = float(request.form['vp'])
+    c = float(request.form['c'])
+    i = float(request.form['i'])
+
+    risk_tool = RiskAssessmentTool()
+    risk_result = {
+        'tp': tp,
+        'vp': vp,
+        'c': c,
+        'i': i,
+        'risk': risk_tool.calculate_risk(tp, vp, c, i)
+    }
+
+    return render_template('index.html', dread_result=None, risk_result=risk_result)
 
 if __name__ == '__main__':
     app.run(debug=True)

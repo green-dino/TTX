@@ -36,5 +36,23 @@
     <p>DREAD Risk Value: {{ result.risk_value }}</p>
     <p>Risk Level: {{ result.risk_level }}</p>
     {% endif %}
+    
+    <!-- Add this form for Risk Assessment Tool -->
+    <form method="POST" action="/calculate_risk">
+        <h2>Risk Assessment Tool</h2>
+        <label for="tp">Threat (t):</label>
+        <input type="number" name="tp" min="0" step="0.01" required><br>
+    
+        <label for="vp">Vulnerability (v):</label>
+        <input type="number" name="vp" min="0" step="0.01" required><br>
+    
+        <label for="c">Countermeasure Effectiveness (c):</label>
+        <input type="number" name="c" min="0" step="0.01" required><br>
+    
+        <label for="i">Impact (i):</label>
+        <input type="number" name="i" min="0" step="0.01" required><br>
+    
+        <button type="submit">Calculate Risk</button>
+    </form>
 </body>
 </html>
