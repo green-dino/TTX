@@ -1,21 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Identify Exercise Objectives</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment</title>
 </head>
 <body>
-    <h1>Exercise Objectives</h1>
-    <form method="POST">
-        <label for="objective">Enter Exercise Objective:</label>
-        <input type="text" name="objective" id="objective">
-        <button type="submit">Add Objective</button>
+    <h1>Risk Assessment</h1>
+    <form method="POST" action="/calculate">
+        <label for="damage">Damage (0-10):</label>
+        <input type="number" name="damage" min="0" max="10" required><br>
+
+        <label for="reproducibility">Reproducibility (0-10):</label>
+        <input type="number" name="reproducibility" min="0" max="10" required><br>
+
+        <label for="exploitability">Exploitability (0-10):</label>
+        <input type="number" name="exploitability" min="0" max="10" required><br>
+
+        <label for="affected_users">Affected Users:</label>
+        <input type="number" name="affected_users" required><br>
+
+        <label for="discoverability">Discoverability (0-10):</label>
+        <input type="number" name="discoverability" min="0" max="10" required><br>
+
+        <button type="submit">Calculate Risk</button>
     </form>
-    <h2>Current Objectives:</h2>
-    <ul>
-        {% for objective in exercise_objectives %}
-            <li>{{ objective }}</li>
-        {% endfor %}
-    </ul>
-    <a href="/">Back to Home</a>
+
+    {% if result %}
+    <h2>Risk Assessment Results:</h2>
+    <p>DAMAGE: {{ result.damage }}</p>
+    <p>REPRODUCIBILITY: {{ result.reproducibility }}</p>
+    <p>EXPLOITABILITY: {{ result.exploitability }}</p>
+    <p>AFFECTED USERS: {{ result.affected_users }}</p>
+    <p>DISCOVERABILITY: {{ result.discoverability }}</p>
+    <p>DREAD Risk Value: {{ result.risk_value }}</p>
+    <p>Risk Level: {{ result.risk_level }}</p>
+    {% endif %}
 </body>
 </html>

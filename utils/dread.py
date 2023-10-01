@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
 
+
 class RiskAssessment:
     def __init__(self, damage, reproducibility, exploitability, affected_users, discoverability):
         self.damage = damage
