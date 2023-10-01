@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 
 from utils.dread import RiskAssessment
 from utils.risk import RiskAssessmentTool  # Import RiskAssessmentTool from risk.py
+from utils.brr import  RiskMatrix
+
 
 app = Flask(__name__)
 
@@ -47,6 +49,20 @@ def calculate_risk():
     }
 
     return render_template('index.html', dread_result=None, risk_result=risk_result)
+
+@app.route('/brr')
+def brr():
+    risk_tool = RiskMatrix()
+    return render_template('index.html', risk_tool=risk_tool)
+
+@app.route('/process_brr', methods=['POST'])
+def process_brr():
+    risk_tool = RiskMatrix()
+    risk_tool.responses = [request.form[f'question_{i}'] for i in range(10)]
+    matrix_names = risk_tool.determine_matrices()
+
+    return render_template('brr_results.html', risk_tool=risk_tool, matrix_names=matrix_names)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

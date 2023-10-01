@@ -64,6 +64,18 @@
     <p>Impact (i): {{ risk_result.i }}</p>
     <p>Calculated Risk: {{ risk_result.risk }}</p>
     {% endif %}
-    
+
+ <h1>Binary Risk Analysis</h1>
+    <form method="POST" action="/process_brr">
+        {% for i in range(10) %}
+        <label for="question_{{ i }}">Question {{ i }}</label>
+        <select name="question_{{ i }}">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+
 </body>
 </html>
