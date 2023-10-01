@@ -1,13 +1,18 @@
 from prettytable import PrettyTable
 
-class RiskAssessmentTool:
-    @staticmethod
-    def calculate_dread_risk(damage, reproducibility, exploitability, affected_users, discoverability):
-        risk_value = (damage + affected_users) * (reproducibility + exploitability + discoverability)
-        return risk_value
+class RiskAssessment:
+    def __init__(self, damage, reproducibility, exploitability, affected_users, discoverability):
+        self.damage = damage
+        self.reproducibility = reproducibility
+        self.exploitability = exploitability
+        self.affected_users = affected_users
+        self.discoverability = discoverability
 
-    @staticmethod
-    def determine_risk_level(risk_value):
+    def calculate_dread_risk(self):
+        risk_value = (self.damage + self.affected_users) * (self.reproducibility + self.exploitability + self.discoverability)
+        return min(risk_value, 54)
+
+    def determine_risk_level(self, risk_value):
         if 1 <= risk_value <= 12:
             return "Notice"
         elif 13 <= risk_value <= 18:
@@ -19,43 +24,48 @@ class RiskAssessmentTool:
         else:
             return "Very High (Risk Value capped at 54)"
 
-    def assess_risk(self, damage, reproducibility, exploitability, affected_users, discoverability):
-        if 0 <= damage <= 10 and 0 <= reproducibility <= 10 and 0 <= exploitability <= 10 and 0 <= discoverability <= 10:
-            risk_value = self.calculate_dread_risk(damage, reproducibility, exploitability, affected_users, discoverability)
-
-            # Cap the risk value at 54 if it exceeds that value
-            risk_value = min(risk_value, 54)
-
+    def assess_risk(self):
+        if 0 <= self.damage <= 10 and 0 <= self.reproducibility <= 10 and 0 <= self.exploitability <= 10 and 0 <= self.discoverability <= 10:
+            risk_value = self.calculate_dread_risk()
             risk_level = self.determine_risk_level(risk_value)
 
-            table = PrettyTable()
-            table.field_names = ["Parameter", "Value"]
-            table.add_row(["Damage", damage])
-            table.add_row(["Reproducibility", reproducibility])
-            table.add_row(["Exploitability", exploitability])
-            table.add_row(["Affected Users", affected_users])
-            table.add_row(["Discoverability", discoverability])
-            table.add_row(["DREAD Risk Value", risk_value])
-            table.add_row(["Risk Level", risk_level])
-
-            print("Risk Assessment Results:")
-            print(table)
-
+            self.display_results(risk_value, risk_level)
             if risk_level == "High":
-                print("Actions to Consider for High-Risk Issues:")
-                print("- Implement immediate mitigation measures.")
-                print("- Allocate necessary resources to address the issue.")
-                print("- Conduct a thorough security review.")
+                self.take_actions_for_high_risk()
+
         else:
             print("Input values must be in the range 0-10.")
 
-if __name__ == "__main__":
-    risk_tool = RiskAssessmentTool()
-    
+    def display_results(self, risk_value, risk_level):
+        table = PrettyTable()
+        table.field_names = ["Parameter", "Value"]
+        table.add_row(["Damage", self.damage])
+        table.add_row(["Reproducibility", self.reproducibility])
+        table.add_row(["Exploitability", self.exploitability])
+        table.add_row(["Affected Users", self.affected_users])
+        table.add_row(["Discoverability", self.discoverability])
+        table.add_row(["DREAD Risk Value", risk_value])
+        table.add_row(["Risk Level", risk_level])
+
+        print("Risk Assessment Results:")
+        print(table)
+
+    def take_actions_for_high_risk(self):
+        print("Actions to Consider for High-Risk Issues:")
+        print("- Implement immediate mitigation measures.")
+        print("- Allocate necessary resources to address the issue.")
+        print("- Conduct a thorough security review")
+
+
+def main():
     damage = float(input("Damage (0-10): "))
     reproducibility = float(input("Reproducibility (0-10): "))
     exploitability = float(input("Exploitability (0-10): "))
     affected_users = float(input("Affected users: "))
     discoverability = float(input("Discoverability (0-10): "))
-    
-    risk_tool.assess_risk(damage, reproducibility, exploitability, affected_users, discoverability)
+
+    assessment = RiskAssessment(damage, reproducibility, exploitability, affected_users, discoverability)
+    assessment.assess_risk()
+
+if __name__ == "__main__":
+    main()
