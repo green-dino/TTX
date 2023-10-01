@@ -28,15 +28,15 @@
         <button type="submit">Calculate Risk</button>
     </form>
 
-    {% if result %}
+    {% if dread_result %}
     <h2>Risk Assessment Results:</h2>
-    <p>DAMAGE: {{ result.damage }}</p>
-    <p>REPRODUCIBILITY: {{ result.reproducibility }}</p>
-    <p>EXPLOITABILITY: {{ result.exploitability }}</p>
-    <p>AFFECTED USERS: {{ result.affected_users }}</p>
-    <p>DISCOVERABILITY: {{ result.discoverability }}</p>
-    <p>DREAD Risk Value: {{ result.risk_value }}</p>
-    <p>Risk Level: {{ result.risk_level }}</p>
+    <p>DAMAGE: {{ dread_result.damage }}</p>
+    <p>REPRODUCIBILITY: {{ dread_result.reproducibility }}</p>
+    <p>EXPLOITABILITY: {{ dread_result.exploitability }}</p>
+    <p>AFFECTED USERS: {{ dread_result.affected_users }}</p>
+    <p>DISCOVERABILITY: {{ dread_result.discoverability }}</p>
+    <p>DREAD Risk Value: {{ dread_result.risk_value }}</p>
+    <p>Risk Level: {{ dread_result.risk_level }}</p>
     {% endif %}
     
     <!-- Add this form for Risk Assessment Tool -->
@@ -63,6 +63,7 @@
     <p>Countermeasure Effectiveness (c): {{ risk_result.c }}</p>
     <p>Impact (i): {{ risk_result.i }}</p>
     <p>Calculated Risk: {{ risk_result.risk }}</p>
-{% endif %}
+    {% endif %}
+    
 </body>
 </html>
