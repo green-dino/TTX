@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risk Assessment</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
-    <h1>Risk Assessment</h1>
+    <h1>DREAD </h1>
     <form method="POST" action="/calculate">
         <label for="damage">Damage (0-10):</label>
         <input type="number" name="damage" min="0" max="10" required><br>
@@ -54,5 +56,13 @@
     
         <button type="submit">Calculate Risk</button>
     </form>
+    {% if risk_result %}
+    <h2>Risk Assessment Tool Results:</h2>
+    <p>Threat (t): {{ risk_result.tp }}</p>
+    <p>Vulnerability (v): {{ risk_result.vp }}</p>
+    <p>Countermeasure Effectiveness (c): {{ risk_result.c }}</p>
+    <p>Impact (i): {{ risk_result.i }}</p>
+    <p>Calculated Risk: {{ risk_result.risk }}</p>
+{% endif %}
 </body>
 </html>
