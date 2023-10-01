@@ -16,7 +16,7 @@ critical_apps = []
 
 # Prompt the user to input details for a critical application
 while True:
-    name = input("Enter the name of the critical application (Uppercase with bumpy caps): ")
+    name = input("Enter the name of the critical application: ")
     description = input("Enter the description of the application: ")
     owner = input("Enter the owner of the application: ")
     status = input("Enter the status of the application (Active/Inactive): ")
