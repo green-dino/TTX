@@ -8,12 +8,9 @@ from .utils import _NLTKQuery #This module provides support functions for the NL
 
 print("Welcome to the Natural Language ToolKit\n")
 print("Please wait while the system loads")
-
-import sys
-import _NLTKQuery
 print("Welcome to the NLTK Query Experimentation")
 print("Please wait loading NLTK . . . ")
-import _classNLTKQuery
+
 oNLTK = _classNLTKQuery.classNLTKQuery()
 print()
 print("Input full path name where intended corpus file or files are stored")
