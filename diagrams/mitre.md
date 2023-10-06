@@ -1,5 +1,5 @@
 ```mermaid
-graph TD
+graph LR
 
 A(ATT&CK Tactics) --> B(Initial Access)
 A --> C(Execution)
