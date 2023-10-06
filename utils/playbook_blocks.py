@@ -1,3 +1,16 @@
+class Block:
+    def __init__(self, name, description=""):
+        self.name = name
+        self.description = description
+        self.functions = []
+        self.tasks = []
+
+    def add_function(self, func):
+        self.functions.append(func)
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
 class ProcessNode:
     def __init__(self, name):
         self.name = name

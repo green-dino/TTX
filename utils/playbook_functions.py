@@ -1,6 +1,15 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
+class Function:
+    def __init__(self, name, code, parameters=None, description=""):
+        self.name = name
+        self.code = code
+        self.parameters = parameters or []
+        self.description = description
+
+
 # Create a directed graph
 G = nx.DiGraph()
 
