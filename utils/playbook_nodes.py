@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # Define the nodes and edges
-data = {
+node_data = {
     'From': ['A', 'B', 'B', 'B', 'B', 'C', 'D', 'E', 'F', 'F', 'F', 'F', 'F', 'C', 'D', 'E', 'N', 'N', 'Q', 'Q', 'T', 'V', 'W', 'X'],
     'To': ['B', 'C', 'D', 'E', 'F', 'F', 'F', 'F', 'G', 'H', 'I', 'J', 'K', 'F', 'L', 'M', 'O', 'P', 'R', 'S', 'U', 'W', 'X', 'Y'],
     'Action': ['Initiates', 'Addresses', 'Initiates', 'Submits', 'Links to', 'Links to', 'Links to', 'Captures', 'Captures', 'Determines', 'Assesses', 'References', 'Links to', 'Links to', 'Conducts', 'Initiates', 'Incorporates', 'Incorporates', 'Maps', 'Maps', 'Assigns', 'Selects', 'Manages', 'Provides']
