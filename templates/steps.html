@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Steps</title>
+</head>
+<body>
+    <h1>Steps</h1>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Description</th>
+        </tr>
+        {% for index, row in steps.iterrows() %}
+            <tr>
+                <td>{{ row['Task ID'] }}</td>
+                <td>{{ row['Task Description'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

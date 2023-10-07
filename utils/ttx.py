@@ -1,3 +1,6 @@
+import pandas as pd
+
+
 class ExerciseScenario:
     def __init__(self, name, description, objectives):
         self.name = name
@@ -90,4 +93,38 @@ exercise1.add_stakeholder_role(
     "Responsible for managing and securing the organization's network infrastructure."
 )
 
-# Example usage for exercise2 omitted for brevity.
+class AttackTactics:
+    def __init__(self):
+        self.initial_access = InitialAccess()
+        self.execution = Execution()
+        self.persistence = Persistence()
+        self.privilege_escalation = PrivilegeEscalation()
+        self.defense_evasion = DefenseEvasion()
+        self.credential_access = CredentialAccess()
+        self.discovery = Discovery()
+        self.lateral_movement = LateralMovement()
+        self.collection = Collection()
+        self.exfiltration = Exfiltration()
+        self.impact = Impact()
+
+class InitialAccess:
+    def __init__(self):
+        self.external_remote_services = ExternalRemoteServices()
+        self.phishing = Phishing()
+        self.hardware_additions = HardwareAdditions()
+        self.taint_shared_content = TaintSharedContent()
+
+class Execution:
+    def __init__(self):
+        self.command_and_script_interpreter = CommandAndScriptInterpreter()
+        self.executable_installer = ExecutableInstaller()
+        self.rootkit = Rootkit()
+        self.taint_shared_content = TaintSharedContent()
+
+class Persistence:
+    def __init__(self):
+        self.boot_or_logon_autostart_execution = BootOrLogonAutostartExecution()
+        self.service_registry_permissions_weakness = ServiceRegistryPermissionsWeakness()
+        self.scheduled_task_job = ScheduledTaskJob()
+        self.startup_items = StartupItems()
+        self.taint_shared_content = TaintSharedContent()

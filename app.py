@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from utils.dread import RiskAssessment
 from utils.risk import RiskAssessmentTool  # Import RiskAssessmentTool from risk.py
 from utils.brr import RiskMatrix
+from utils.disaster_recovery import steps,roles,functions
 
 app = Flask(__name__)
 
@@ -60,6 +61,19 @@ def process_brr():
     matrix_names = risk_tool.determine_matrices()
 
     return render_template('brr_results.html', risk_tool=risk_tool, matrix_names=matrix_names)
+
+@app.route('/steps')
+def display_steps():
+    return render_template('steps.html', steps=steps)
+
+@app.route('/functions')
+def display_functions():
+    return render_template('functions.html', functions=functions)
+
+@app.route('/roles')
+def display_roles():
+    return render_template('roles.html', roles=roles)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
