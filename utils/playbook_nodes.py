@@ -10,7 +10,7 @@ node_data = {
 }
 
 # Create a DataFrame
-df = pd.DataFrame(data)
+df = pd.DataFrame(node_data)
 
 # Create a directed graph
 G = nx.DiGraph()
