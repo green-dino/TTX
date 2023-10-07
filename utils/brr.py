@@ -1,7 +1,32 @@
+import pandas as pd
+
 # Uses
 # Binary Risk Analysis is good for:
 # Quick risk conversations - be able to discuss a specific risk in just a few minutes
 # Highlighting subjectivity - helping identify where perceptions about risk elements differ
+matrix_mappings = {
+    'A': {'00': 'Threat Scope (S) Small', '01': 'Threat Scope (M) Medium', '10': 'Threat Scope (M) Medium', '11': 'Threat Scope (L) Large'},
+    'B': {'00': 'Protection Capability (C) Complete', '01': 'Protection Capability (P) Partial', '10': 'Protection Capability (P) Partial', '11': 'Protection Capability (I) Incomplete'},
+    'C': {'A0B0': 'Attack Effectiveness (L) Limited Basis', 'A0B1': 'Attack Effectiveness (O) Occasionally', 'A1B0': 'Attack Effectiveness (O) Occasionally', 'A1B1': 'Attack Effectiveness (C) Consistently'},
+    'D': {'00': 'Occurrence (R) Rarely', '01': 'Occurrence (P) Periodically', '10': 'Occurrence (P) Periodically', '11': 'Occurrence (A) Always'},
+    'E': {'CD': 'Threat Likelihood (LL) Low', 'CP': 'Threat Likelihood (ML) Moderate', 'CO': 'Threat Likelihood (ML) Moderate', 'PD': 'Threat Likelihood (HL) High', 'PP': 'Threat Likelihood (HL) High', 'PO': 'Threat Likelihood (HL) High', 'OD': 'Threat Likelihood (HL) High', 'OP': 'Threat Likelihood (HL) High', 'OO': 'Threat Likelihood (HL) High'},
+    'F': {'00': 'Harm (L) Limited', '01': 'Harm (M) Material', '10': 'Harm (M) Material', '11': 'Harm (D) Damaging'},
+    'G': {'00': 'Valuation (P) Peripheral', '01': 'Valuation (S) Supporting', '10': 'Valuation (S) Supporting', '11': 'Valuation (E) Essential'},
+    'H': {'FG': 'Impact (Li) Low', 'FM': 'Impact (Mi) Moderate', 'FH': 'Impact (Hi) High', 'SG': 'Impact (Mi) Moderate', 'SM': 'Impact (Hi) High', 'SH': 'Impact (Hi) High', 'EG': 'Impact (Hi) High', 'EM': 'Impact (Hi) High', 'EH': 'Impact (Hi) High'},
+    'I': {'EH': 'Risk (L) Low', 'EM': 'Risk (M) Moderate', 'EG': 'Risk (M) Moderate', 'SH': 'Risk (M) Moderate', 'SM': 'Risk (H) High', 'SG': 'Risk (H) High', 'FH': 'Risk (H) High', 'FM': 'Risk (H) High', 'FG': 'Risk (H) High'},
+}
+
+# Convert the dictionary to a list of dictionaries with appropriate column names
+brrdata = []
+for key, values in matrix_mappings.items():
+    for subkey, value in values.items():
+        brrdata.append({'Category': key, 'Subcategory': subkey, 'Description': value})
+
+# Create a DataFrame
+df = pd.DataFrame(brrdata)
+
+
+
 class RiskMatrix:
     def __init__(self):
         self.responses = []
@@ -31,6 +56,7 @@ class RiskMatrix:
 }
 
         self.matrix_order = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', ]
+
 
     def map_answers_to_matrix(self, matrix_reference, inputs):
         input_str = ''.join(map(str, inputs))
