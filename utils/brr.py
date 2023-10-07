@@ -23,7 +23,7 @@ for key, values in matrix_mappings.items():
         brrdata.append({'Category': key, 'Subcategory': subkey, 'Description': value})
 
 # Create a DataFrame
-df = pd.DataFrame(brrdata)
+brr_df = pd.DataFrame(brrdata)
 
 
 
@@ -134,3 +134,42 @@ if __name__ == "__main__":
     for i, matrix_ref in enumerate(matrix_reference_3x3):
         matrix_name_3x3 = risk_tool.map_answers_to_matrix(matrix_ref, inputs_3x3[i])
         print(f"Matrix {matrix_ref} Name (3x3): {matrix_name_3x3}")
+
+def explore_data(self):
+        while True:
+            print("\nOptions:")
+            print("1. View Collected Responses")
+            print("2. View 2x2 Matrices")
+            print("3. View 3x3 Matrices")
+            print("4. Exit")
+
+            choice = input("Enter your choice: ")
+
+            if choice == '1':
+                print("\nCollected Responses:")
+                for i, response in enumerate(self.responses):
+                    print(f"Question {i}: {response}")
+            elif choice == '2':
+                # ... Add code to view 2x2 matrices here ...
+                pass
+            elif choice == '3':
+                # ... Add code to view 3x3 matrices here ...
+                pass
+            elif choice == '4':
+                print("Exiting the program.")
+                break
+            else:
+                print("Invalid choice. Please enter a valid option.")
+
+                
+
+if __name__ == "__main__":
+    risk_tool = RiskMatrix()
+
+    risk_tool.collect_responses()
+
+    matrix_names = risk_tool.determine_matrices()
+
+    print("\nData Collection Complete. You can now explore the data.")
+
+    risk_tool.explore_data()

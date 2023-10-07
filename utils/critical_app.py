@@ -1,6 +1,7 @@
 import csv
 import os
 
+
 class CriticalApplication:
     def __init__(self, name, description, owner, status):
         self.Name = name  # Uppercase with bumpy caps

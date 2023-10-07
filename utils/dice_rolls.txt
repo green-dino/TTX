@@ -1,0 +1,8 @@
+Outcome: 1
+Standard: 3
+Stats: 6
+Attributes: 10
+HP: 3
+Actions: 13
+Applications: 19
+Percentials: 39
