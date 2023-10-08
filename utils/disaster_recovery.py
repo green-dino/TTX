@@ -76,15 +76,19 @@ roles_df = pd.DataFrame(roles, columns=['From Node', 'From Description', 'To Nod
 # Function to filter and display a DataFrame
 def filter_and_display(df):
     while True:
-        print("Filter Options:")
+        print("\nFilter Options:")
         print("1. Filter by column value")
         print("2. Exit")
         choice = input("Enter your choice: ")
 
         if choice == '1':
+            print("\nAvailable columns:")
+            for col in df.columns:
+                print(col)
             column_name = input("Enter the column name to filter: ")
             filter_value = input("Enter the filter value: ")
             filtered_df = df[df[column_name] == filter_value]
+            print("\nFiltered DataFrame:")
             print(filtered_df)
         elif choice == '2':
             break
@@ -93,7 +97,7 @@ def filter_and_display(df):
 
 # Allow the user to choose which DataFrame to filter
 while True:
-    print("Choose a DataFrame to filter:")
+    print("\nChoose a DataFrame to filter:")
     print("1. Steps")
     print("2. Functions")
     print("3. Roles")
@@ -110,3 +114,9 @@ while True:
         break
     else:
         print("Invalid choice. Please select a valid option.")
+
+
+
+
+
+

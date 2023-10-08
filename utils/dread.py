@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
-#from calc import run_risk_calculator
+from calc import run_risk_calculator
+import math
 
 class RiskAssessment:
     DREAD_RISK_CAP = 54
@@ -24,14 +25,16 @@ class RiskAssessment:
         exploitability_weight = 0.5
         affected_users_weight = 0.01
         discoverability_weight = 0.5
-        # Calculate the weighted sum of the parameters
-        weighted_sum = (
-        self.damage * damage_weight +
-        self.reproducibility * reproducibility_weight +
-        self.exploitability * exploitability_weight +
-        self.affected_users * affected_users_weight +
-        self.discoverability * discoverability_weight
-    )
+
+        # Calculate the weighted sum of the parameters using math.prod()
+        weighted_sum = math.prod([
+            self.damage ** damage_weight,
+            self.reproducibility ** reproducibility_weight,
+            self.exploitability ** exploitability_weight,
+            self.affected_users ** affected_users_weight,
+            self.discoverability ** discoverability_weight
+        ])
+
         # Scale the weighted sum to fit within your desired range (0 to DREAD_RISK_CAP)
         scaled_risk_value = (weighted_sum / (damage_weight + reproducibility_weight + exploitability_weight + affected_users_weight + discoverability_weight)) * self.DREAD_RISK_CAP
         
