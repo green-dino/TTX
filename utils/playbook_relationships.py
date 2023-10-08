@@ -47,7 +47,7 @@ relationships = [
 ]
 
 # Create a pandas DataFrame
-df = pd.DataFrame(relationships, columns=['From Node', 'From Entity', 'Relationship', 'To Node', 'To Entity'])
+pb_relations_df = pd.DataFrame(relationships, columns=['From Node', 'From Entity', 'Relationship', 'To Node', 'To Entity'])
 
 # Display the DataFrame
 print(df)

@@ -28,4 +28,4 @@ mitre_process = {
                   'L4(Network Denial of Service)', 'L5(Service Stop)', 'L6(Taint Shared Content)'],
 }
 
-df = pd.DataFrame(data)
+mitre_df = pd.DataFrame(data)

@@ -59,10 +59,10 @@ collect_dependencies(backup_e)
 collect_dependencies(restore_i)
 
 # Create a DataFrame from the list of dependencies
-df = pd.DataFrame(dependencies, columns=['Item', 'Dependencies'])
+drp_df = pd.DataFrame(dependencies, columns=['Item', 'Dependencies'])
 
 # Display the DataFrame
-print(df)
+print(drp_df)
 
 # Define steps for each recovery plan
 plan_g.add_step(rebuilding_l)
@@ -72,3 +72,31 @@ plan_h.add_step(changes_m)
 
 # Execute the disaster recovery plan
 goal_a.execute()
+
+def execute_disaster_recovery_plan(start_component):
+    # Create a stack to keep track of components to execute
+    stack = [start_component]
+
+    # Create a set to keep track of executed components to avoid duplicates
+    executed_components = set()
+
+    while stack:
+        # Pop the next component from the stack
+        current_component = stack.pop()
+
+        # Check if the current component has already been executed
+        if current_component in executed_components:
+            continue
+
+        # Execute the current component
+        current_component.execute()
+
+        # Add the dependencies of the current component to the stack
+        stack.extend(current_component.dependencies)
+
+        # Mark the current component as executed
+        executed_components.add(current_component)
+
+# Call the execute_disaster_recovery_plan function with the starting component
+execute_disaster_recovery_plan(goal_a)
+
