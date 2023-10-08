@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
-from calc import run_risk_calculator
 import math
+import numpy as np
 
 class RiskAssessment:
     DREAD_RISK_CAP = 54
@@ -19,7 +19,6 @@ class RiskAssessment:
         self.discoverability = discoverability
         self.results = {}
 
-
     def calculate_dread_risk(self):
         damage_weight = 0.4
         reproducibility_weight = 0.3
@@ -35,12 +34,37 @@ class RiskAssessment:
             self.affected_users ** affected_users_weight,
             self.discoverability ** discoverability_weight
         ])
-
-        # Scale the weighted sum to fit within your desired range (0 to DREAD_RISK_CAP)
-        scaled_risk_value = (weighted_sum / (damage_weight + reproducibility_weight + exploitability_weight + affected_users_weight + discoverability_weight)) * self.DREAD_RISK_CAP
         
+        # list of all values
+        risk_values = []
+
+        for _ in range(10000):  # Simulate 10,000 random combinations
+            # Generate random values within the specified range
+            random_damage = np.random.uniform(0, 10)
+            random_reproducibility = np.random.uniform(0, 10)
+            random_exploitability = np.random.uniform(0, 10)
+            random_affected_users = np.random.uniform(0, 10)
+            random_discoverability = np.random.uniform(0, 10)
+
+            # Calculate the composite risk for the random combination
+            random_weighted_sum = (
+                random_damage ** damage_weight +
+                random_reproducibility ** reproducibility_weight +
+                random_exploitability ** exploitability_weight +
+                random_affected_users ** affected_users_weight +
+                random_discoverability ** discoverability_weight
+            )
+
+            risk_values.append(random_weighted_sum)
+
+        # Calculate the percentile rank of the original risk value within the simulated values
+        percentile = np.percentile(risk_values, (weighted_sum / len(risk_values)) * 100)
+
+         # Scale the weighted sum logarithmically to fit within your desired range (0 to DREAD_RISK_CAP)
+        scaled_risk_value = min((np.log1p(weighted_sum) / np.log1p(10)) * self.DREAD_RISK_CAP, RiskAssessment.DREAD_RISK_CAP)
+
         risk_value = (self.damage + self.affected_users) * (self.reproducibility + self.exploitability + self.discoverability)
-        return min(scaled_risk_value, RiskAssessment.DREAD_RISK_CAP)
+        return max(0, scaled_risk_value)
 
     def determine_risk_level(self, risk_value):
         for (min_range, max_range), level in self.RISK_LEVELS.items():
@@ -78,6 +102,37 @@ class RiskAssessment:
 
     def take_actions_for_high_risk(self):
         return ["Implement immediate mitigation measures.", "Allocate necessary resources to address the issue.", "Conduct a thorough security review"]
+    
+    def run_against_random_generator(self):
+        risk_values = []
+
+        for _ in range(10000):  # Simulate 10,000 random combinations
+            # Generate random values within the specified range
+            random_damage = np.random.uniform(0, 10)
+            random_reproducibility = np.random.uniform(0, 10)
+            random_exploitability = np.random.uniform(0, 10)
+            random_affected_users = np.random.uniform(0, 10)
+            random_discoverability = np.random.uniform(0, 10)
+
+            # Calculate the composite risk for the random combination
+            random_weighted_sum = (
+                random_damage ** 0.4 +
+                random_reproducibility ** 0.3 +
+                random_exploitability ** 0.5 +
+                random_affected_users ** 0.01 +
+                random_discoverability ** 0.5
+            )
+
+            risk_values.append(random_weighted_sum)
+
+        # Calculate the percentile rank of the original risk value within the simulated values
+        percentile = np.percentile(risk_values, (self.calculate_dread_risk() / len(risk_values)) * 100)
+
+        # Scale the percentile value to fit within your desired range (0 to DREAD_RISK_CAP)
+        scaled_risk_value = (percentile / 100) * self.DREAD_RISK_CAP
+
+        risk_value = (self.damage + self.affected_users) * (self.reproducibility + self.exploitability + self.discoverability)
+        return min(scaled_risk_value, self.DREAD_RISK_CAP)
 
 def main():
     try:
@@ -92,10 +147,16 @@ def main():
             name = input("Enter a name to save this assessment: ")
             assessments[name] = assessment.results
             assessment.display_results()
+        
+        run_random_generator = input("Do you want to run these results against the random generator? (yes/no): ")
+        if run_random_generator.lower() == "yes":
+                random_result = assessment.run_against_random_generator()
+                print("Random Generator Results:")
+                table = PrettyTable()
+                table.field_names = ["Parameter", "Value"]
+                table.add_row(["Random Risk Value", random_result])
+                print(table)
 
-            run_calculator = input("Do you want to run the risk calculator? (yes/no): ")
-            if run_calculator.lower() == "yes":
-                run_risk_calculator()
 
     except ValueError:
         print("Invalid input. Please enter numeric values in the specified range.")
