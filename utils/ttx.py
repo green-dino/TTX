@@ -128,3 +128,6 @@ class Persistence:
         self.scheduled_task_job = ScheduledTaskJob()
         self.startup_items = StartupItems()
         self.taint_shared_content = TaintSharedContent()
+
+class PrivilegeEscalation:
+# continue efforts here later 

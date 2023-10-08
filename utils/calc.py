@@ -1,27 +1,27 @@
 import statistics
 from collections import Counter
 
+def calculate_mean(numbers):
+    if len(numbers) == 0:
+        return None
+    total = sum(numbers)
+    mean = total / len(numbers)
+    return mean
+
+def calculate_median(numbers):
+    return statistics.median(numbers)
+
+def calculate_quartiles(numbers):
+    return statistics.median(numbers[:len(numbers)//2]), statistics.median(numbers), statistics.median(numbers[(len(numbers)+1)//2:])
+
+def calculate_mode(numbers):
+    counts = Counter(numbers)
+    max_count = max(counts.values())
+    mode = [num for num, count in counts.items() if count == max_count]
+    return mode
+
 def run_risk_calculator():
     results = {}
-
-    def calculate_mean(numbers):
-        if len(numbers) == 0:
-            return None
-        total = sum(numbers)
-        mean = total / len(numbers)
-        return mean
-
-    def calculate_median(numbers):
-        return statistics.median(numbers)
-
-    def calculate_quartiles(numbers):
-        return statistics.median(numbers[:len(numbers)//2]), statistics.median(numbers), statistics.median(numbers[(len(numbers)+1)//2:])
-
-    def calculate_mode(numbers):
-        counts = Counter(numbers)
-        max_count = max(counts.values())
-        mode = [num for num, count in counts.items() if count == max_count]
-        return mode
 
     while True:
         print("Select an option:")

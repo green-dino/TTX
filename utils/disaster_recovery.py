@@ -16,9 +16,7 @@ steps = [
 ]
 
 # Create a Pandas DataFrame from the graph structure
-df = pd.DataFrame(steps, columns=['Task ID', 'Task Description'])
-
-
+steps_df = pd.DataFrame(steps, columns=['Task ID', 'Task Description'])
 
 # Define the graph structure as a list of tuples
 functions = [
@@ -32,7 +30,7 @@ functions = [
 ]
 
 # Create a Pandas DataFrame from the graph structure
-df = pd.DataFrame(functions, columns=['From Node', 'From Description', 'To Node', 'To Description'])
+functions_df = pd.DataFrame(functions, columns=['From Node', 'From Description', 'To Node', 'To Description'])
 
 
 import pandas as pd
@@ -72,5 +70,43 @@ roles = [
 ]
 
 # Create a Pandas DataFrame from the graph structure
-df = pd.DataFrame(roles, columns=['From Node', 'From Description', 'To Node', 'To Description'])
+roles_df = pd.DataFrame(roles, columns=['From Node', 'From Description', 'To Node', 'To Description'])
 
+
+# Function to filter and display a DataFrame
+def filter_and_display(df):
+    while True:
+        print("Filter Options:")
+        print("1. Filter by column value")
+        print("2. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            column_name = input("Enter the column name to filter: ")
+            filter_value = input("Enter the filter value: ")
+            filtered_df = df[df[column_name] == filter_value]
+            print(filtered_df)
+        elif choice == '2':
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+# Allow the user to choose which DataFrame to filter
+while True:
+    print("Choose a DataFrame to filter:")
+    print("1. Steps")
+    print("2. Functions")
+    print("3. Roles")
+    print("4. Exit")
+    data_frame_choice = input("Enter your choice: ")
+
+    if data_frame_choice == '1':
+        filter_and_display(steps_df)
+    elif data_frame_choice == '2':
+        filter_and_display(functions_df)
+    elif data_frame_choice == '3':
+        filter_and_display(roles_df)
+    elif data_frame_choice == '4':
+        break
+    else:
+        print("Invalid choice. Please select a valid option.")
