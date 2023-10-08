@@ -1,6 +1,5 @@
 from prettytable import PrettyTable
-from calc import run_risk_calculator
-
+#from calc import run_risk_calculator
 
 class RiskAssessment:
     DREAD_RISK_CAP = 54
@@ -17,17 +16,33 @@ class RiskAssessment:
         self.exploitability = exploitability
         self.affected_users = affected_users
         self.discoverability = discoverability
-        self.results = {}  # Dictionary to store results
+        self.results = {}
 
     def calculate_dread_risk(self):
+        damage_weight = 0.3
+        reproducibility_weight = 0.3
+        exploitability_weight = 0.5
+        affected_users_weight = 0.01
+        discoverability_weight = 0.5
+        # Calculate the weighted sum of the parameters
+        weighted_sum = (
+        self.damage * damage_weight +
+        self.reproducibility * reproducibility_weight +
+        self.exploitability * exploitability_weight +
+        self.affected_users * affected_users_weight +
+        self.discoverability * discoverability_weight
+    )
+        # Scale the weighted sum to fit within your desired range (0 to DREAD_RISK_CAP)
+        scaled_risk_value = (weighted_sum / (damage_weight + reproducibility_weight + exploitability_weight + affected_users_weight + discoverability_weight)) * self.DREAD_RISK_CAP
+        
         risk_value = (self.damage + self.affected_users) * (self.reproducibility + self.exploitability + self.discoverability)
-        return min(risk_value, self.DREAD_RISK_CAP)
+        return min(scaled_risk_value, self.DREAD_RISK_CAP)
 
     def determine_risk_level(self, risk_value):
         for (min_range, max_range), level in self.RISK_LEVELS.items():
             if min_range <= risk_value <= max_range:
                 return level
-        return "Very High (Risk Value capped at {})".format(self.DREAD_RISK_CAP)
+        return f"Very High (Risk Value capped at {self.DREAD_RISK_CAP})"
 
     def assess_risk(self):
         if 0 <= self.damage <= 10 and 0 <= self.reproducibility <= 10 and 0 <= self.exploitability <= 10 and 0 <= self.discoverability <= 10:
@@ -45,11 +60,12 @@ class RiskAssessment:
     def display_results(self):
         table = PrettyTable()
         table.field_names = ["Parameter", "Value"]
-        table.add_row(["Damage", self.damage])
-        table.add_row(["Reproducibility", self.reproducibility])
-        table.add_row(["Exploitability", self.exploitability])
-        table.add_row(["Affected Users", self.affected_users])
-        table.add_row(["Discoverability", self.discoverability])
+        parameter_names = ["Damage", "Reproducibility", "Exploitability", "Affected Users", "Discoverability"]
+        parameter_values = [self.damage, self.reproducibility, self.exploitability, self.affected_users, self.discoverability]
+
+        for name, value in zip(parameter_names, parameter_values):
+            table.add_row([name, value])
+
         for key, value in self.results.items():
             table.add_row([key, value])
 
@@ -58,6 +74,7 @@ class RiskAssessment:
 
     def take_actions_for_high_risk(self):
         return ["Implement immediate mitigation measures.", "Allocate necessary resources to address the issue.", "Conduct a thorough security review"]
+
 def main():
     try:
         damage = float(input("Damage (0-10): "))
@@ -72,7 +89,6 @@ def main():
             assessments[name] = assessment.results
             assessment.display_results()
 
-            # Ask if the user wants to run the risk calculator
             run_calculator = input("Do you want to run the risk calculator? (yes/no): ")
             if run_calculator.lower() == "yes":
                 run_risk_calculator()
@@ -81,5 +97,5 @@ def main():
         print("Invalid input. Please enter numeric values in the specified range.")
 
 if __name__ == "__main__":
-    assessments = {}  # Dictionary to store assessments
+    assessments = {}
     main()
