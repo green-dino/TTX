@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 100%;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "skyblue", "id": "A(ATT\u0026CK Tactics) ", "label": "A(ATT\u0026CK Tactics) ", "shape": "ellipse"}, {"color": "skyblue", "id": " B(Initial Access)", "label": " B(Initial Access)", "shape": "ellipse"}, {"color": "skyblue", "id": "A ", "label": "A ", "shape": "ellipse"}, {"color": "skyblue", "id": " C(Execution)", "label": " C(Execution)", "shape": "ellipse"}, {"color": "skyblue", "id": " D(Persistence)", "label": " D(Persistence)", "shape": "ellipse"}, {"color": "skyblue", "id": " E(Privilege Escalation)", "label": " E(Privilege Escalation)", "shape": "ellipse"}, {"color": "skyblue", "id": " F(Defense Evasion)", "label": " F(Defense Evasion)", "shape": "ellipse"}, {"color": "skyblue", "id": " G(Credential Access)", "label": " G(Credential Access)", "shape": "ellipse"}, {"color": "skyblue", "id": " H(Discovery)", "label": " H(Discovery)", "shape": "ellipse"}, {"color": "skyblue", "id": " I(Lateral Movement)", "label": " I(Lateral Movement)", "shape": "ellipse"}, {"color": "skyblue", "id": " J(Collection)", "label": " J(Collection)", "shape": "ellipse"}, {"color": "skyblue", "id": " K(Exfiltration)", "label": " K(Exfiltration)", "shape": "ellipse"}, {"color": "skyblue", "id": " L(Impact)", "label": " L(Impact)", "shape": "ellipse"}, {"color": "skyblue", "id": "B ", "label": "B ", "shape": "ellipse"}, {"color": "skyblue", "id": " B1(External Remote Services)", "label": " B1(External Remote Services)", "shape": "ellipse"}, {"color": "skyblue", "id": " B2(Phishing)", "label": " B2(Phishing)", "shape": "ellipse"}, {"color": "skyblue", "id": " B3(Hardware Additions)", "label": " B3(Hardware Additions)", "shape": "ellipse"}, {"color": "skyblue", "id": " B4(Taint Shared Content)", "label": " B4(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "C ", "label": "C ", "shape": "ellipse"}, {"color": "skyblue", "id": " C1(Command and Scripting Interpreter)", "label": " C1(Command and Scripting Interpreter)", "shape": "ellipse"}, {"color": "skyblue", "id": " C2(Executable Installer)", "label": " C2(Executable Installer)", "shape": "ellipse"}, {"color": "skyblue", "id": " C3(Rootkit)", "label": " C3(Rootkit)", "shape": "ellipse"}, {"color": "skyblue", "id": " C4(Taint Shared Content)", "label": " C4(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "D ", "label": "D ", "shape": "ellipse"}, {"color": "skyblue", "id": " D1(Boot or Logon Autostart Execution)", "label": " D1(Boot or Logon Autostart Execution)", "shape": "ellipse"}, {"color": "skyblue", "id": " D2(Service Registry Permissions Weakness)", "label": " D2(Service Registry Permissions Weakness)", "shape": "ellipse"}, {"color": "skyblue", "id": " D3(Scheduled Task/Job)", "label": " D3(Scheduled Task/Job)", "shape": "ellipse"}, {"color": "skyblue", "id": " D4(Startup Items)", "label": " D4(Startup Items)", "shape": "ellipse"}, {"color": "skyblue", "id": " D5(Taint Shared Content)", "label": " D5(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "E ", "label": "E ", "shape": "ellipse"}, {"color": "skyblue", "id": " E1(Permission Groups Discovery)", "label": " E1(Permission Groups Discovery)", "shape": "ellipse"}, {"color": "skyblue", "id": " E2(Taint Shared Content)", "label": " E2(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "F ", "label": "F ", "shape": "ellipse"}, {"color": "skyblue", "id": " F1(Indicator Removal on Host)", "label": " F1(Indicator Removal on Host)", "shape": "ellipse"}, {"color": "skyblue", "id": " F2(Process Injection)", "label": " F2(Process Injection)", "shape": "ellipse"}, {"color": "skyblue", "id": " F3(Runtime Data Manipulation)", "label": " F3(Runtime Data Manipulation)", "shape": "ellipse"}, {"color": "skyblue", "id": " F4(Software Packing)", "label": " F4(Software Packing)", "shape": "ellipse"}, {"color": "skyblue", "id": " F5(Taint Shared Content)", "label": " F5(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "G ", "label": "G ", "shape": "ellipse"}, {"color": "skyblue", "id": " G1(Account Manipulation)", "label": " G1(Account Manipulation)", "shape": "ellipse"}, {"color": "skyblue", "id": " G2(Credential Dumping)", "label": " G2(Credential Dumping)", "shape": "ellipse"}, {"color": "skyblue", "id": " G3(Password Cracking)", "label": " G3(Password Cracking)", "shape": "ellipse"}, {"color": "skyblue", "id": " G4(Taint Shared Content)", "label": " G4(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "H ", "label": "H ", "shape": "ellipse"}, {"color": "skyblue", "id": " H1(Account Discovery)", "label": " H1(Account Discovery)", "shape": "ellipse"}, {"color": "skyblue", "id": " H2(Network Service Scanning)", "label": " H2(Network Service Scanning)", "shape": "ellipse"}, {"color": "skyblue", "id": " H3(Network Share Discovery)", "label": " H3(Network Share Discovery)", "shape": "ellipse"}, {"color": "skyblue", "id": " H4(System Network Configuration Discovery)", "label": " H4(System Network Configuration Discovery)", "shape": "ellipse"}, {"color": "skyblue", "id": " H5(Taint Shared Content)", "label": " H5(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "I ", "label": "I ", "shape": "ellipse"}, {"color": "skyblue", "id": " I1(Exploitation for Client Execution)", "label": " I1(Exploitation for Client Execution)", "shape": "ellipse"}, {"color": "skyblue", "id": " I2(Lateral Tool Transfer)", "label": " I2(Lateral Tool Transfer)", "shape": "ellipse"}, {"color": "skyblue", "id": " I3(Remote Desktop Protocol)", "label": " I3(Remote Desktop Protocol)", "shape": "ellipse"}, {"color": "skyblue", "id": " I4(Taint Shared Content)", "label": " I4(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "J ", "label": "J ", "shape": "ellipse"}, {"color": "skyblue", "id": " J1(Data from Information Repositories)", "label": " J1(Data from Information Repositories)", "shape": "ellipse"}, {"color": "skyblue", "id": " J2(Data from Local System)", "label": " J2(Data from Local System)", "shape": "ellipse"}, {"color": "skyblue", "id": " J3(Data Staged)", "label": " J3(Data Staged)", "shape": "ellipse"}, {"color": "skyblue", "id": " J4(Email Collection)", "label": " J4(Email Collection)", "shape": "ellipse"}, {"color": "skyblue", "id": " J5(Screen Capture)", "label": " J5(Screen Capture)", "shape": "ellipse"}, {"color": "skyblue", "id": " J6(Taint Shared Content)", "label": " J6(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "K ", "label": "K ", "shape": "ellipse"}, {"color": "skyblue", "id": " K1(Data Transfer Size Limits)", "label": " K1(Data Transfer Size Limits)", "shape": "ellipse"}, {"color": "skyblue", "id": " K2(Exfiltration Over C2 Channel)", "label": " K2(Exfiltration Over C2 Channel)", "shape": "ellipse"}, {"color": "skyblue", "id": " K3(Exfiltration Over Other Network Medium)", "label": " K3(Exfiltration Over Other Network Medium)", "shape": "ellipse"}, {"color": "skyblue", "id": " K4(Exfiltration Over Physical Medium)", "label": " K4(Exfiltration Over Physical Medium)", "shape": "ellipse"}, {"color": "skyblue", "id": " K5(Taint Shared Content)", "label": " K5(Taint Shared Content)", "shape": "ellipse"}, {"color": "skyblue", "id": "L ", "label": "L ", "shape": "ellipse"}, {"color": "skyblue", "id": " L1(Data Destruction)", "label": " L1(Data Destruction)", "shape": "ellipse"}, {"color": "skyblue", "id": " L2(Disk Structure Wipe)", "label": " L2(Disk Structure Wipe)", "shape": "ellipse"}, {"color": "skyblue", "id": " L3(Endpoint Denial of Service)", "label": " L3(Endpoint Denial of Service)", "shape": "ellipse"}, {"color": "skyblue", "id": " L4(Network Denial of Service)", "label": " L4(Network Denial of Service)", "shape": "ellipse"}, {"color": "skyblue", "id": " L5(Service Stop)", "label": " L5(Service Stop)", "shape": "ellipse"}, {"color": "skyblue", "id": " L6(Taint Shared Content)", "label": " L6(Taint Shared Content)", "shape": "ellipse"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "gray", "from": "A(ATT\u0026CK Tactics) ", "to": " B(Initial Access)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " C(Execution)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " D(Persistence)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " E(Privilege Escalation)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " F(Defense Evasion)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " G(Credential Access)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " H(Discovery)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " I(Lateral Movement)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " J(Collection)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " K(Exfiltration)"}, {"arrows": "to", "color": "gray", "from": "A ", "to": " L(Impact)"}, {"arrows": "to", "color": "gray", "from": "B ", "to": " B1(External Remote Services)"}, {"arrows": "to", "color": "gray", "from": "B ", "to": " B2(Phishing)"}, {"arrows": "to", "color": "gray", "from": "B ", "to": " B3(Hardware Additions)"}, {"arrows": "to", "color": "gray", "from": "B ", "to": " B4(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "C ", "to": " C1(Command and Scripting Interpreter)"}, {"arrows": "to", "color": "gray", "from": "C ", "to": " C2(Executable Installer)"}, {"arrows": "to", "color": "gray", "from": "C ", "to": " C3(Rootkit)"}, {"arrows": "to", "color": "gray", "from": "C ", "to": " C4(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "D ", "to": " D1(Boot or Logon Autostart Execution)"}, {"arrows": "to", "color": "gray", "from": "D ", "to": " D2(Service Registry Permissions Weakness)"}, {"arrows": "to", "color": "gray", "from": "D ", "to": " D3(Scheduled Task/Job)"}, {"arrows": "to", "color": "gray", "from": "D ", "to": " D4(Startup Items)"}, {"arrows": "to", "color": "gray", "from": "D ", "to": " D5(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "E ", "to": " E1(Permission Groups Discovery)"}, {"arrows": "to", "color": "gray", "from": "E ", "to": " E2(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "F ", "to": " F1(Indicator Removal on Host)"}, {"arrows": "to", "color": "gray", "from": "F ", "to": " F2(Process Injection)"}, {"arrows": "to", "color": "gray", "from": "F ", "to": " F3(Runtime Data Manipulation)"}, {"arrows": "to", "color": "gray", "from": "F ", "to": " F4(Software Packing)"}, {"arrows": "to", "color": "gray", "from": "F ", "to": " F5(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "G ", "to": " G1(Account Manipulation)"}, {"arrows": "to", "color": "gray", "from": "G ", "to": " G2(Credential Dumping)"}, {"arrows": "to", "color": "gray", "from": "G ", "to": " G3(Password Cracking)"}, {"arrows": "to", "color": "gray", "from": "G ", "to": " G4(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "H ", "to": " H1(Account Discovery)"}, {"arrows": "to", "color": "gray", "from": "H ", "to": " H2(Network Service Scanning)"}, {"arrows": "to", "color": "gray", "from": "H ", "to": " H3(Network Share Discovery)"}, {"arrows": "to", "color": "gray", "from": "H ", "to": " H4(System Network Configuration Discovery)"}, {"arrows": "to", "color": "gray", "from": "H ", "to": " H5(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "I ", "to": " I1(Exploitation for Client Execution)"}, {"arrows": "to", "color": "gray", "from": "I ", "to": " I2(Lateral Tool Transfer)"}, {"arrows": "to", "color": "gray", "from": "I ", "to": " I3(Remote Desktop Protocol)"}, {"arrows": "to", "color": "gray", "from": "I ", "to": " I4(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "J ", "to": " J1(Data from Information Repositories)"}, {"arrows": "to", "color": "gray", "from": "J ", "to": " J2(Data from Local System)"}, {"arrows": "to", "color": "gray", "from": "J ", "to": " J3(Data Staged)"}, {"arrows": "to", "color": "gray", "from": "J ", "to": " J4(Email Collection)"}, {"arrows": "to", "color": "gray", "from": "J ", "to": " J5(Screen Capture)"}, {"arrows": "to", "color": "gray", "from": "J ", "to": " J6(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "K ", "to": " K1(Data Transfer Size Limits)"}, {"arrows": "to", "color": "gray", "from": "K ", "to": " K2(Exfiltration Over C2 Channel)"}, {"arrows": "to", "color": "gray", "from": "K ", "to": " K3(Exfiltration Over Other Network Medium)"}, {"arrows": "to", "color": "gray", "from": "K ", "to": " K4(Exfiltration Over Physical Medium)"}, {"arrows": "to", "color": "gray", "from": "K ", "to": " K5(Taint Shared Content)"}, {"arrows": "to", "color": "gray", "from": "L ", "to": " L1(Data Destruction)"}, {"arrows": "to", "color": "gray", "from": "L ", "to": " L2(Disk Structure Wipe)"}, {"arrows": "to", "color": "gray", "from": "L ", "to": " L3(Endpoint Denial of Service)"}, {"arrows": "to", "color": "gray", "from": "L ", "to": " L4(Network Denial of Service)"}, {"arrows": "to", "color": "gray", "from": "L ", "to": " L5(Service Stop)"}, {"arrows": "to", "color": "gray", "from": "L ", "to": " L6(Taint Shared Content)"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
