@@ -19,8 +19,9 @@ class RiskAssessment:
         self.discoverability = discoverability
         self.results = {}
 
+
     def calculate_dread_risk(self):
-        damage_weight = 0.3
+        damage_weight = 0.4
         reproducibility_weight = 0.3
         exploitability_weight = 0.5
         affected_users_weight = 0.01
@@ -39,7 +40,7 @@ class RiskAssessment:
         scaled_risk_value = (weighted_sum / (damage_weight + reproducibility_weight + exploitability_weight + affected_users_weight + discoverability_weight)) * self.DREAD_RISK_CAP
         
         risk_value = (self.damage + self.affected_users) * (self.reproducibility + self.exploitability + self.discoverability)
-        return min(scaled_risk_value, self.DREAD_RISK_CAP)
+        return min(scaled_risk_value, RiskAssessment.DREAD_RISK_CAP)
 
     def determine_risk_level(self, risk_value):
         for (min_range, max_range), level in self.RISK_LEVELS.items():
