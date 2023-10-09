@@ -8,6 +8,13 @@ def calculate_mean(numbers):
     mean = total / len(numbers)
     return mean
 
+def calculate_min_max(numbers):
+    if len(numbers) == 0:
+        return None
+    min_val = min(numbers)
+    max_val = max(numbers)
+    return min_val, max_val
+
 def calculate_median(numbers):
     return statistics.median(numbers)
 
@@ -25,10 +32,10 @@ def run_risk_calculator():
 
     while True:
         print("Select an option:")
-        print("1. Calculate Mean")
-        print("2. Calculate Median")
-        print("3. Calculate Quartiles")
-        print("4. Calculate Mode")
+        print("1. Calculate Mean (Minimum: The minimum value, Maximum: The maximum value, Mean: The average value)")
+        print("2. Calculate Median (Median: The value at the midpoint)")
+        print("3. Calculate Quartiles (Quartiles: Q1, Q2, Q3)")
+        print("4. Calculate Mode (Mode(s): The most frequent value(s))")
         print("5. View Saved Results")
         print("6. Quit")
 
