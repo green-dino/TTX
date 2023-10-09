@@ -50,4 +50,4 @@ relationships = [
 pb_relations_df = pd.DataFrame(relationships, columns=['From Node', 'From Entity', 'Relationship', 'To Node', 'To Entity'])
 
 # Display the DataFrame
-print(df)
+print(pb_relations_df)

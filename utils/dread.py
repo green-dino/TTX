@@ -81,6 +81,9 @@ class RiskAssessment:
             if risk_level == "High":
                 self.results["High Risk Actions"] = self.take_actions_for_high_risk()
             return True
+        elif risk_level == "Medium":
+                self.results["Medium Risk Actions"] = self.take_actions_for_medium_risk()
+
         else:
             print("Input values must be in the range 0-10.")
             return False
@@ -102,6 +105,12 @@ class RiskAssessment:
 
     def take_actions_for_high_risk(self):
         return ["Implement immediate mitigation measures.", "Allocate necessary resources to address the issue.", "Conduct a thorough security review"]
+    
+    def take_actions_for_medium_risk(self):
+        return ["Assess and analyze", "Identify Mitigation Strategies", "Monitor and review"]
+    
+    def take_actions_for_low_risk(self):
+        return ["monitor closely", "Document and review", "Maintain readiness"]
     
     def run_against_random_generator(self):
         risk_values = []
