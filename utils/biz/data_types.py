@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 # Sample data for demonstration
 data = {
@@ -38,3 +40,4 @@ if __name__ == "__main__":
 
     for data_type in data_types:
         preprocess_data(data_type, data[data_type])
+
