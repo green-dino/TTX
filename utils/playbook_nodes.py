@@ -26,3 +26,10 @@ nx.draw(G, pos, with_labels=True, node_size=800, node_color='lightblue', font_si
 nx.draw_networkx_edge_labels(G, pos, edge_labels=labels, font_size=8)
 plt.title('Data Visualization')
 plt.show()
+
+
+print(df.head)
+
+df.info()
+row = df.shape[0]
+cols = df.shape[1]
