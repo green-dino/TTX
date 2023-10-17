@@ -35,6 +35,12 @@ class ProcessFlow:
                 current_node = current_node.next_node
             current_node.set_next_node(node)
 
+    def add_connection(self, from_node_name, to_node_name):
+        from_node = self.nodes.get(from_node_name)
+        to_node = self.nodes.get(to_node_name)
+        if from_node and to_node:
+            from_node.add_connection(to_node)
+
     def __str__(self):
         result = ""
         current_node = self.start_node
@@ -42,6 +48,18 @@ class ProcessFlow:
             result += f"{current_node} --> "
             current_node = current_node.next_node
         return result[:-5]  # Remove the trailing " --> "
+    
+process_flow = ProcessFlow()
+
+for node_data in nodes_data:
+    node_name, connections = node_data
+    node = ProcessNode(node_name)
+    process_flow.add_node(node)
+
+    if connections:
+        connection_list = connections.split(", ")
+        for connection in connection_list:
+            process_flow.add_connection(node_name, connection)
 
 # Create the nodes
 b1 = ProcessNode("B1(Problem Identification and Change Initiation)")
