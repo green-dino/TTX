@@ -21,7 +21,7 @@ def main():
 
         message = client_socket.recv(4096).decode()
 
-        # Extract the filename from the given message
+        # Extract the filename from the given message 
         filename = message.split()[1]
         filetouse = "/" + filename
 
