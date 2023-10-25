@@ -17,10 +17,11 @@ Before you can run the application, make sure you have the following dependencie
 - Flask (Python web framework)
 - prettytable (for displaying results in tabular format)
 
-You can install Flask and prettytable using pip:
+You can install these and more with:
 
 ```bash
-pip install Flask prettytable
+$ pip install -r requirements.txt
+```
 
 Usage
 
